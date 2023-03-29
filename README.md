@@ -95,11 +95,11 @@ If you don't set the props behavior options (third argument of `useDialog` compo
 - `keepInitial` - if `true` reset props values to initial values, otherwise to default values of the component
 
 ```javascript
-  const dialog = useDialog(
-    Dialog,
-    { detail: { ... } },
-    { clear: true, keepInitial: true }
-  )
+const dialog = useDialog(
+  Dialog,
+  { detail: { ... } },
+  { clear: true, keepInitial: true }
+)
 ```
 
 ## Close dialogs programmable
