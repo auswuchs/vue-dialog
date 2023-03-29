@@ -33,7 +33,7 @@ app.mount('#app')
     ...
   </div>
 
-  <!-- Don't have to need import the component -->
+  <!-- Don't have to import the component -->
   <DialogWrapper />
 </template>
 ```
