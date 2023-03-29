@@ -9,13 +9,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useDialogWrapper } from './useDialogWrapper'
+import { useDialogContainer } from './useDialogContainer'
 
-const { dialogsStore } = useDialogWrapper()
+const { dialogsStore } = useDialogContainer()
 </script>
 
 <script lang="ts">
 export default {
-  name: 'Dialog-Wrapper'
+  name: 'DialogContainer'
 }
 </script>

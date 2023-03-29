@@ -1,5 +1,5 @@
 import { useDialog } from './useDialog'
-import DialogWrapper from './DialogWrapper.vue'
+import DialogWrapper from './DialogContainer.vue'
 
 import { App } from 'vue'
 

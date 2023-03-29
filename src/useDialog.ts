@@ -3,7 +3,7 @@ import { EventHookOn, useConfirmDialog, UseConfirmDialogRevealResult } from '@vu
 
 import type { ComputedRef } from 'vue'
 
-import { useDialogWrapper } from './useDialogWrapper'
+import { useDialogContainer } from './useDialogContainer'
 
 
 export type ComponentProps<C extends Component> = C extends new (...args: any) => any
@@ -54,7 +54,7 @@ export function useDialog <C extends Component> (
     removeDialog,
     removeAll,
     dialogsStore
-  } = useDialogWrapper()
+  } = useDialogContainer()
 
   const { 
     reveal,

@@ -1,7 +1,7 @@
 import { markRaw, Ref, reactive, Component } from 'vue'
 import type { ComponentProps } from './useDialog'
 
-export type UseDialogWrapperReturn = {
+export type UseDialogContainerReturn = {
   dialogsStore: DialogData<any>[]
   addDialog: (dialogData: DialogData<any>) => void,
   removeDialog: (id: number) => void,
@@ -21,7 +21,7 @@ export type DialogData<C extends Component> = {
 
 const dialogsStore: DialogData<any>[] = reactive([])
 
-export const useDialogWrapper = function (): UseDialogWrapperReturn {
+export const useDialogContainer = function (): UseDialogContainerReturn {
 
   const addDialog = function (dialogData: DialogData<any>) {
     dialogsStore.push(markRaw(dialogData))
