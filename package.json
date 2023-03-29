@@ -12,7 +12,8 @@
     ".": {
       "require": "./dist/vue-dialog.umd.cjs",
       "import": "./dist/vue-dialog.js"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",

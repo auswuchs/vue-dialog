@@ -16,6 +16,7 @@ npm i vue-dialog
 import { createApp } from 'vue'
 import App from './App.vue'
 import VueDialog from 'vue-dialog'
+import 'vue-dialog/dist/style.css'
 
 const app = createApp(App)
 
