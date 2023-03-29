@@ -65,7 +65,7 @@ import { useDialog } from 'vue-dialog'
 
 
 const handleDialog = async () => {
-  const dialog = useDialog(useDialog)
+  const dialog = useDialog(Dialog)
   const { data, onConfirm, onCancel } = await dialog.reveal()
 
   onConfirm(() => {
