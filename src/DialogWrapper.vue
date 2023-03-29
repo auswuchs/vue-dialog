@@ -14,7 +14,7 @@ import { useDialogWrapper } from './useDialogWrapper'
 const { dialogsStore } = useDialogWrapper()
 </script>
 
-<script>
+<script lang="ts">
 export default {
   name: 'Dialog-Wrapper'
 }

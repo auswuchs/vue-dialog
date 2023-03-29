@@ -3,6 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-dialog.umd.js",
+  "module": "./dist/vue-dialog.es.js",
+  "exports": {
+    ".": {
+      "require": "./dist/vue-dialog.umd.js",
+      "import": "./dist/vue-dialog.es.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -13,6 +24,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "@vitejs/plugin-vue": "^4.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
