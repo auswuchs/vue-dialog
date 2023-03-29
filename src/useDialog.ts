@@ -1,8 +1,10 @@
 import { ref, watch, computed, Component, VNodeProps, AllowedComponentProps } from 'vue'
-import type { ComputedRef } from 'vue'
 import { EventHookOn, useConfirmDialog, UseConfirmDialogRevealResult } from '@vueuse/core'
 
+import type { ComputedRef } from 'vue'
+
 import { useDialogWrapper } from './useDialogWrapper'
+
 
 export type ComponentProps<C extends Component> = C extends new (...args: any) => any
   ? Omit<InstanceType<C>['$props'], keyof VNodeProps | keyof AllowedComponentProps>
@@ -44,25 +46,8 @@ export function useDialog <C extends Component> (
   onConfirm: EventHookOn
   onCancel: EventHookOn
 } {
-
-  const setAttrs = (attrs: ComponentProps<C> | null) => {
-    if(!attrs) {
-      propsRef.value = {}
-      return
-    }
-    for (const prop in attrs) {
-      propsRef.value[prop] = attrs[prop]
-    }
-   }
-
   const propsRef = ref({} as ComponentProps<C>)
-  setAttrs(initialAttrs)
   const revealed = ref(false)
-
-  const close = () => {
-    revealed.value = false
-    removeDialog(DIALOG_ID)
-  }
 
   const {
     addDialog,
@@ -75,18 +60,43 @@ export function useDialog <C extends Component> (
     reveal,
     isRevealed, 
     onConfirm, 
-    onReveal, 
     onCancel, 
+    onReveal, 
     confirm, 
     cancel 
   } = useConfirmDialog()
 
   const DIALOG_ID = getDialogId()
 
+  const setAttrs = (attrs: ComponentProps<C> | null) => {
+    if(!attrs) {
+      propsRef.value = {}
+      return
+    }
+    for (const prop in attrs) {
+      propsRef.value[prop] = attrs[prop]
+    }
+  }
+  setAttrs(initialAttrs)
+
+
+  const close = () => {
+    revealed.value = false
+    removeDialog(DIALOG_ID)
+  }
+
+  const closeAll = () =>{
+    dialogsStore.forEach(dialog => {
+      dialog.revealed.value = false
+    })
+    removeAll()
+  }
+
+
   onReveal((props?: ComponentProps<C>) => {
 
     revealed.value = true
-    if(props) setAttrs(props as ComponentProps<C>)
+    if (props) setAttrs(props)
 
     addDialog({
       id: DIALOG_ID,
@@ -109,13 +119,6 @@ export function useDialog <C extends Component> (
 
     removeDialog(DIALOG_ID)
   })
-
-  const closeAll = () =>{
-    dialogsStore.forEach(dialog => {
-      dialog.revealed.value = false
-    })
-    removeAll()
-  }
 
   return {
     close,
