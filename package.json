@@ -6,12 +6,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-dialog.umd.js",
-  "module": "./dist/vue-dialog.es.js",
+  "main": "./dist/vue-dialog.umd.cjs",
+  "module": "./dist/vue-dialog.js",
   "exports": {
     ".": {
-      "require": "./dist/vue-dialog.umd.js",
-      "import": "./dist/vue-dialog.es.js"
+      "require": "./dist/vue-dialog.umd.cjs",
+      "import": "./dist/vue-dialog.js"
     }
   },
   "scripts": {

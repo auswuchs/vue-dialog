@@ -15,7 +15,7 @@ npm i vue-dialog
 // main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import * as VueDialog from 'vue-dialog'
+import VueDialog from 'vue-dialog'
 
 const app = createApp(App)
 
@@ -51,8 +51,8 @@ Dialog component must contain emits `confirm` and `cancel` to work properly.
 
 <template>
   <div>
-    <button @click="emit('confirm')">Confirm</button>
-    <button @click="emit('cancel')">Cancel</button>
+    <button @click="emit('confirm', { name: 'Auswuchs' })">Confirm</button>
+    <button @click="emit('cancel', { number: 123 })">Cancel</button>
   </div>
 </template>
 ```
@@ -64,26 +64,36 @@ import Dialog from './Dialog.vue'
 import { useDialog } from 'vue-dialog'
 
 
-const handleDialog = async () => {
-  const dialog = useDialog(Dialog)
-  const { data, onConfirm, onCancel } = await dialog.reveal()
+const handleDialog = () => {
+  const { reveal, onConfirm, onCancel } = useDialog(Dialog)
+  dialog.reveal()
 
-  onConfirm(() => {
-    console.log('Confirmed!')
+  onConfirm((data) => {
+    console.log(data) // { name: 'Auswuchs' }
   })
-  onCancel(() => {
-    console.log('Canceled!')
+  onCancel((data) => {
+    console.log(data) // { number: 123 }
   })
-
-  console.log(data)
 }
 </script>
 ```
 
-- `onConfirm` - hook gets a callback that runs after the user confirmed the dialog
-- `onCancel` - hook gets a callback that runs if user dismissed the dialog
+or
+
+```html
+<script setup>
+import Dialog from './Dialog.vue'
+import { useDialog } from 'vue-dialog'
 
 
+const handleDialog = async () => {
+  const { data, isCanceled } = await useDialog(Dialog).reveal()
+
+  console.log(data) // { name: 'Auswuchs' }
+  console.log(isCanceled) // true/false
+}
+</script>
+```
 
 ## Passing data from/to dialog
 
@@ -101,22 +111,3 @@ const dialog = useDialog(
   { clear: true, keepInitial: true }
 )
 ```
-
-## Close dialogs programmable
-
-```javascript
-import Dialog from './Dialog.vue'
-import { useDialog } from 'vuedialog'
-
-const dialog = useDialog(Dialog)
-
-const openDialog = () => {
-  dialog.reveal()
-}
-
-const closeDialog = () => {
-  dialog.close()
-}
-```
-
-It doesn't trigger any hooks. If you need to close all dialog just call `dialog.closeAll()`.

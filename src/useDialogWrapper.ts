@@ -1,5 +1,5 @@
 import { markRaw, Ref, reactive, Component } from 'vue'
-import { ComponentProps } from './index'
+import type { ComponentProps } from './useDialog'
 
 export type UseDialogWrapperReturn = {
   dialogsStore: DialogData<any>[]
@@ -12,11 +12,11 @@ export type DialogData<C extends Component> = {
   id: number
   dialog: C
   isRevealed: Ref<boolean>
+  revealed: Ref<boolean>
+  props: ComponentProps<C>,
   confirm: (props?: ComponentProps<C>) => void
   cancel: (props?: ComponentProps<C>) => void
-  props: ComponentProps<C>,
   close: () => void,
-  revealed: Ref<boolean>
 }
 
 const dialogsStore: DialogData<any>[] = reactive([])
@@ -29,7 +29,7 @@ export const useDialogWrapper = function (): UseDialogWrapperReturn {
 
   const removeDialog = function (id: number){
     const index = dialogsStore.findIndex(dialog => dialog.id == id)
-      dialogsStore.splice( index, 1)
+      dialogsStore.splice(index, 1)
   }
 
   const removeAll = function () {

@@ -64,7 +64,12 @@ export function useDialog <C extends Component> (
     removeDialog(DIALOG_ID)
   }
 
-  const { addDialog, removeDialog, removeAll, dialogsStore } = useDialogWrapper()
+  const {
+    addDialog,
+    removeDialog,
+    removeAll,
+    dialogsStore
+  } = useDialogWrapper()
 
   const { 
     reveal,

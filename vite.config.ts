@@ -8,10 +8,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'vue-dialog',
-      fileName(format) {
-          return `${format}.js`
-      },
+      name: 'VueDialog',
+      fileName: 'vue-dialog'
     },
     rollupOptions: {
       external: ['vue'],
