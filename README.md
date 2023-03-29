@@ -15,7 +15,7 @@ npm i vue-dialog
 // main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueDialog from 'vue-dialog'
+import * as VueDialog from 'vue-dialog'
 
 const app = createApp(App)
 

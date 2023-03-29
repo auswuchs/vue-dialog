@@ -1,6 +1,6 @@
 /* eslint-disable */
 declare module '*.vue' {
-  import type { DefineComponent } from 'vue-demi'
-  const component: DefineComponent<{}, {}, any>
+  import type { Component } from 'vue'
+  const component: Component<{}, {}, any>
   export default component
 }
