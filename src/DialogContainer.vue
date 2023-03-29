@@ -6,6 +6,7 @@
       v-for="dialog in dialogsStore" :key="dialog.id"
       :is="dialog.dialog"
       :="dialog.props"
+      :class="[$style.dialog]"
       @confirm="dialog.confirm"
       @cancel="dialog.cancel"
     ></component>
@@ -35,6 +36,10 @@ export default {
   align-items: center;
   justify-content: center;
   background: rgba(200,215,255, .5);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
+}
+
+.dialog {
+  border-radius: 10px;
 }
 </style>
