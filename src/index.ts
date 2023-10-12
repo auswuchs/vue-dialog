@@ -1,15 +1,14 @@
 import { useDialog } from './useDialog'
-import DialogWrapper from './DialogContainer.vue'
+import DialogContainer from './components/DialogContainer.vue'
 
 import { App } from 'vue'
 
-
-function install(app: App) {
-  app.component('DialogWrapper', DialogWrapper)
+const install = (app: App) => {
+  app.component('DialogContainer', DialogContainer)
 }
-
-export default {
-  install
+  
+export {
+  install as default,
+  useDialog
 }
-export { useDialog }
 

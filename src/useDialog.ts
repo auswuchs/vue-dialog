@@ -1,31 +1,22 @@
-import { ref, watch, computed, Component, VNodeProps, AllowedComponentProps } from 'vue'
+import { ref, watch, computed, Component, shallowRef } from 'vue'
 import { EventHookOn, useConfirmDialog, UseConfirmDialogRevealResult } from '@vueuse/core'
 
 import type { ComputedRef } from 'vue'
+import type { ComponentProps } from './types'
 
 import { useDialogContainer } from './useDialogContainer'
 
+let initialDialogId = 0
 
-export type ComponentProps<C extends Component> = C extends new (...args: any) => any
-  ? Omit<InstanceType<C>['$props'], keyof VNodeProps | keyof AllowedComponentProps>
-  : never
-
-type PropsBehaviorOptions = {
-  clear: boolean,
-  keepInitial: boolean
-}
-
-let dialogNumber = 0
-
-function getDialogId() {
-    return ++dialogNumber
+const getDialogId = () => {
+  return ++initialDialogId
 }
 
 /**
  * @param dialog - a component that used for modal dialog
  * @param initialAttrs - new props data for dialog component, optional
  * @param options - props behavior settings, optional
- * @returns `{ reveal, isRevealed, onConfirm, onCancel, close, closeAll }` -
+ * @returns `{ reveal, isRevealed, onConfirm, onCancel, close, closeAll }`
  * `reveal` - shows the component
  * `isRevealed` - return computed mark if the component is shown
  * `onConfirm` - hook that gets a callback for user's confirmation
@@ -33,10 +24,9 @@ function getDialogId() {
  * `close` - close the dialog without triggering any hook and don't change `isRevealed`
  * `closeAll` - close all open dialogs
  */
-export function useDialog <C extends Component> (
-  dialog: C,
+export const useDialog = <C extends Component>(
+  component: C,
   initialAttrs: ComponentProps<C> = {} as ComponentProps<C>,
-  options: PropsBehaviorOptions = { clear: false, keepInitial: false }
 ): {
   close: () => void
   closeAll: () => void
@@ -45,8 +35,8 @@ export function useDialog <C extends Component> (
   isRevealed: ComputedRef<boolean>
   onConfirm: EventHookOn
   onCancel: EventHookOn
-} {
-  const propsRef = ref({} as ComponentProps<C>)
+} => {
+  const propsRef = shallowRef<ComponentProps<C>>({} as ComponentProps<C>)
   const revealed = ref(false)
 
   const {
@@ -86,21 +76,20 @@ export function useDialog <C extends Component> (
   }
 
   const closeAll = () =>{
-    dialogsStore.forEach(dialog => {
-      dialog.revealed.value = false
+    dialogsStore.forEach(comp => {
+      comp.revealed.value = false
     })
     removeAll()
   }
 
 
   onReveal((props?: ComponentProps<C>) => {
-
     revealed.value = true
     if (props) setAttrs(props)
 
     addDialog({
       id: DIALOG_ID,
-      dialog,
+      component,
       isRevealed,
       confirm,
       cancel,
@@ -112,11 +101,6 @@ export function useDialog <C extends Component> (
 
   watch(isRevealed, (value) => {
     if (value) return
-
-    if (options.clear) {
-      setAttrs(options.keepInitial ? initialAttrs : null)
-    }
-
     removeDialog(DIALOG_ID)
   })
 

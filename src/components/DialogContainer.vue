@@ -1,13 +1,12 @@
 <template>
-  <transition name="fade">
+  <transition :name="transitionName">
     <div 
       v-if="dialogsStore.length"
-      :class="[$style.container]">
+      class="dialog-container">
       <component
         v-for="dialog in dialogsStore" :key="dialog.id"
-        :is="dialog.dialog"
+        :is="dialog.component"
         :="dialog.props"
-        :class="[$style.dialog]"
         @confirm="dialog.confirm"
         @cancel="dialog.cancel"
     ></component>
@@ -16,39 +15,33 @@
 </template>
 
 <script lang="ts" setup>
-import { useDialogContainer } from './useDialogContainer'
+import { useDialogContainer } from '../useDialogContainer'
+
+interface Props {
+  transitionName?: string
+}
+withDefaults(defineProps<Props>(), {
+  transitionName: 'fade',
+})
 
 const { dialogsStore } = useDialogContainer()
 </script>
 
-<script lang="ts">
-export default {
-  name: 'DialogContainer'
-}
-</script>
-
-<style module>
-.container {
+<style scoped>
+.dialog-container {
   position: fixed;
-  width: 120%;
-  height: 120%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(200,215,255, .5);
   backdrop-filter: blur(3px);
+  z-index: 10000;
 }
 
-.dialog {
-  border-radius: 10px;
-}
-
-</style>
-
-<style scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
