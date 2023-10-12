@@ -1,19 +1,21 @@
 {
   "name": "vue-dialog",
-  "private": true,
+  "description": "Modern programmatic way to use dialogs in vue",
+  "private": false,
   "version": "0.0.1",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-dialog.umd.cjs",
+  "main": "./dist/vue-dialog.cjs",
   "module": "./dist/vue-dialog.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/vue-dialog.umd.cjs",
+      "require": "./dist/vue-dialog.cjs",
       "import": "./dist/vue-dialog.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./style": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
@@ -25,10 +27,15 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.2.0",
-    "vue-tsc": "^1.2.0"
+    "@types/node": "^20.8.4",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.11",
+    "vite-plugin-dts": "^3.6.0",
+    "vue-tsc": "^1.8.19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auswuchs/vue-dialog"
   }
 }
