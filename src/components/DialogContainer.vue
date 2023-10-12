@@ -6,7 +6,7 @@
       <component
         v-for="dialog in dialogsStore" :key="dialog.id"
         :is="dialog.component"
-        :="dialog.props"
+        v-bind="dialog.props"
         @confirm="dialog.confirm"
         @cancel="dialog.cancel"
     ></component>
