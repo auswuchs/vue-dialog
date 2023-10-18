@@ -14,34 +14,34 @@ const getDialogId = () => {
 
 /**
  * @param dialog - a component that used for modal dialog
- * @param initialAttrs - new props data for dialog component, optional
- * @param options - props behavior settings, optional
+ * @param props - props for dialog component, optional
  * @returns `{ reveal, isRevealed, onConfirm, onCancel, close, closeAll }`
- * `reveal` - shows the component
- * `isRevealed` - return computed mark if the component is shown
- * `onConfirm` - hook that gets a callback for user's confirmation
- * `onCancel` - hook that gets a callback for user's canceling
- * `close` - close the dialog without triggering any hook and don't change `isRevealed`
- * `closeAll` - close all open dialogs
+ * `reveal` - shows dialog, return promise
+ * `isRevealed` - return computed boolean if component is shown
+ * `hasOpenedDialogs` - return computed boolean if there is at least one open dialog
+ * `onConfirm` - hook that gets a callback for dialog confirmation
+ * `onCancel` - hook that gets a callback for dialog canceling
+ * `close` - close the dialog without triggering any hook
+ * `closeAll` - close all dialogs
  */
 export const useDialog = <C extends Component>(
   component: C,
-  initialAttrs: ComponentProps<C> = {} as ComponentProps<C>,
+  props: ComponentProps<C> = {} as ComponentProps<C>,
 ): {
   close: () => void
   closeAll: () => void
   reveal: (props?: ComponentProps<C>) => Promise<UseConfirmDialogRevealResult<any, boolean>>
-
   isRevealed: ComputedRef<boolean>
+  hasOpenedDialogs: ComputedRef<boolean>
   onConfirm: EventHookOn
   onCancel: EventHookOn
 } => {
   const propsRef = shallowRef<ComponentProps<C>>({} as ComponentProps<C>)
-  const revealed = ref(false)
+  const revealed = ref(true)
 
   const {
-    addDialog,
-    removeDialog,
+    dialogAdd,
+    dialogRemove,
     removeAll,
     dialogsStore
   } = useDialogContainer()
@@ -58,21 +58,21 @@ export const useDialog = <C extends Component>(
 
   const DIALOG_ID = getDialogId()
 
-  const setAttrs = (attrs: ComponentProps<C> | null) => {
-    if(!attrs) {
+  const setProps = (props: ComponentProps<C> | null) => {
+    if(!props) {
       propsRef.value = {}
       return
     }
-    for (const prop in attrs) {
-      propsRef.value[prop] = attrs[prop]
+    for (const prop in props) {
+      propsRef.value[prop] = props[prop]
     }
   }
-  setAttrs(initialAttrs)
+  setProps(props)
 
 
   const close = () => {
     revealed.value = false
-    removeDialog(DIALOG_ID)
+    dialogRemove(DIALOG_ID)
   }
 
   const closeAll = () =>{
@@ -82,12 +82,13 @@ export const useDialog = <C extends Component>(
     removeAll()
   }
 
-
+  // update props in case if the same dialog 
+  // called more than once and props changed
   onReveal((props?: ComponentProps<C>) => {
     revealed.value = true
-    if (props) setAttrs(props)
+    if (props) setProps(props)
 
-    addDialog({
+    dialogAdd({
       id: DIALOG_ID,
       component,
       isRevealed,
@@ -101,14 +102,15 @@ export const useDialog = <C extends Component>(
 
   watch(isRevealed, (value) => {
     if (value) return
-    removeDialog(DIALOG_ID)
+    dialogRemove(DIALOG_ID)
   })
 
   return {
     close,
     closeAll,
     reveal,
-    isRevealed: computed(() => isRevealed.value && revealed.value),
+    isRevealed: computed(() => revealed.value),
+    hasOpenedDialogs: computed(() => dialogsStore.length > 0),
     onConfirm,
     onCancel,
   }

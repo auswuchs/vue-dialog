@@ -9,6 +9,6 @@ const install = (app: App) => {
   
 export {
   install as default,
-  useDialog
+  useDialog,
 }
 

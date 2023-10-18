@@ -5,13 +5,13 @@ import type { UseDialogContainerReturn, DialogData } from './types'
 const sharedUseDialogContainer = (): UseDialogContainerReturn => {
   const dialogsStore: DialogData<any>[] = reactive([])
 
-  const addDialog = (dialogData: DialogData<any>) => {
+  const dialogAdd = (dialogData: DialogData<any>) => {
     dialogsStore.push(markRaw(dialogData))
   }
 
-  const removeDialog = (id: number) => {
+  const dialogRemove = (id: number) => {
     const index = dialogsStore.findIndex(dialog => dialog.id == id)
-      dialogsStore.splice(index, 1)
+    dialogsStore.splice(index, 1)
   }
 
   const removeAll = () => {
@@ -20,9 +20,9 @@ const sharedUseDialogContainer = (): UseDialogContainerReturn => {
 
   return {
     dialogsStore,
-    addDialog,
-    removeDialog,
-    removeAll
+    dialogAdd,
+    dialogRemove,
+    removeAll,
   }
 }
 

@@ -2,7 +2,7 @@
   "name": "vue-dialog",
   "description": "Modern programmatic way to use dialogs in vue",
   "private": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "files": [
     "dist"
@@ -14,8 +14,7 @@
     ".": {
       "require": "./dist/vue-dialog.cjs",
       "import": "./dist/vue-dialog.js"
-    },
-    "./style": "./dist/style.css"
+    }
   },
   "scripts": {
     "dev": "vite",

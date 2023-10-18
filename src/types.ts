@@ -8,8 +8,8 @@ export type ComponentProps<C extends Component> = C extends new (...args: any) =
   
 export type UseDialogContainerReturn = {
   dialogsStore: DialogData<any>[]
-  addDialog: (dialogData: DialogData<any>) => void,
-  removeDialog: (id: number) => void,
+  dialogAdd: (dialogData: DialogData<any>) => void,
+  dialogRemove: (id: number) => void,
   removeAll: () => void
 }
 
