@@ -38,4 +38,4 @@ const sharedUseDialogContainer = (): UseDialogContainerReturn => {
   }
 }
 
-export const useDialogContainer = createSharedComposable(sharedUseDialogContainer)
+export const useDialogContainer: () => UseDialogContainerReturn = createSharedComposable(sharedUseDialogContainer)
