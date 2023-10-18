@@ -9,10 +9,11 @@
 npm i vue-dialog
 ```
 
-### Add it to your main.js
+### Add it to you vue app as a plugin
 
-```js
-// main.js
+```ts
+// Vue 3
+// main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
 import VueDialog from 'vue-dialog'
@@ -25,16 +26,28 @@ app.use(VueDialog)
 app.mount('#app')
 ```
 
+```ts
+// Nuxt 3
+// plugins/vue-dialog.ts
+
+import { defineNuxtPlugin } from 'nuxt/app'
+import VueDialog from 'vue-dialog'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(VueDialog)
+})
+```
+
+
 ### Add `DialogWrapper` to `App.vue` template:
 
 ```html
 <!-- App.vue -->
 <template>
-  <div class="app">
-    ...
-  </div>
+  <div class="app" ></div>
 
   <!-- Don't have to import the component -->
+  <!-- Just place wherever you want -->
   <DialogWrapper />
 </template>
 ```
@@ -98,7 +111,8 @@ const handleDialog = async () => {
 
 ## Passing data from/to dialog
 
-There are several ways to deal with data. First of all, you can pass data to the second argument of the `useDialog` composable. Data must be an object with component props. For example, if a component has a prop with the name `detail` we can pass it like this `{ detail: { ... } }`.
+You can pass props to dialog component as the second argument of the `useDialog` composable. Data must be an object with component props. 
+For example, if a component has a prop with the name `detail` we can pass it like this `{ detail: { ... } }`.
 
 ```javascript
 const dialog = useDialog(
