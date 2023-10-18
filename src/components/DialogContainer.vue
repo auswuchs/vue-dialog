@@ -1,5 +1,5 @@
 <template>
-  <transition-group v-bind="$attrs">
+  <transition-group>
     <component
       v-for="dialog in dialogsStore" :key="dialog.id"
       v-show="dialog.revealed.value"
