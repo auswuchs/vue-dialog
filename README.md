@@ -1,4 +1,4 @@
-# Programmatically-callable vue-dialog
+# Programmatically-callable vue dialog
 
 
 ## Installation
@@ -6,7 +6,7 @@
 ### Install the plugin
 
 ```bash
-npm i vue-dialog
+npm i @auswuchs/vue-dialog
 ```
 
 ### Add it to you vue app as a plugin
@@ -16,8 +16,7 @@ npm i vue-dialog
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueDialog from 'vue-dialog'
-import 'vue-dialog/dist/style.css'
+import VueDialog from '@auswuchs/vue-dialog'
 
 const app = createApp(App)
 
@@ -29,9 +28,8 @@ app.mount('#app')
 ```ts
 // Nuxt 3
 // plugins/vue-dialog.ts
-
 import { defineNuxtPlugin } from 'nuxt/app'
-import VueDialog from 'vue-dialog'
+import VueDialog from '@auswuchs/vue-dialog'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(VueDialog)
@@ -39,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 ```
 
 
-### Add `DialogWrapper` to `App.vue` template:
+### Add `DialogContainer` to `App.vue` template:
 
 ```html
 <!-- App.vue -->
@@ -48,7 +46,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   <!-- Don't have to import the component -->
   <!-- Just place wherever you want -->
-  <DialogWrapper />
+  <DialogContainer />
 </template>
 ```
 
@@ -75,7 +73,7 @@ Dialog component must contain emits `confirm` and `cancel` to work properly.
 ```html
 <script setup>
 import Dialog from './Dialog.vue'
-import { useDialog } from 'vue-dialog'
+import { useDialog } from '@auswuchs/vue-dialog'
 
 
 const handleDialog = () => {
@@ -97,7 +95,7 @@ or
 ```html
 <script setup>
 import Dialog from './Dialog.vue'
-import { useDialog } from 'vue-dialog'
+import { useDialog } from '@auswuchs/vue-dialog'
 
 
 const handleDialog = async () => {
