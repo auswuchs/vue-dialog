@@ -67,7 +67,7 @@ import { useDialog } from 'vue-dialog'
 
 const handleDialog = () => {
   const { reveal, onConfirm, onCancel } = useDialog(Dialog)
-  dialog.reveal()
+  reveal()
 
   onConfirm((data) => {
     console.log(data) // { name: 'Auswuchs' }
