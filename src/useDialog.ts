@@ -104,7 +104,7 @@ export const useDialog = <C extends Component>(
     close,
     closeAll,
     reveal,
-    isRevealed: computed(() => revealed.value),
+    isRevealed: computed(() => isRevealed.value && revealed.value),
     onConfirm,
     onCancel,
   }
