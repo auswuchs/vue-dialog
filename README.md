@@ -109,6 +109,5 @@ If you don't set the props behavior options (third argument of `useDialog` compo
 const dialog = useDialog(
   Dialog,
   { detail: { ... } },
-  { clear: true, keepInitial: true }
 )
 ```
