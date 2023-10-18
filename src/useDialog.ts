@@ -32,7 +32,6 @@ export const useDialog = <C extends Component>(
   closeAll: () => void
   reveal: (props?: ComponentProps<C>) => Promise<UseConfirmDialogRevealResult<any, boolean>>
   isRevealed: ComputedRef<boolean>
-  hasOpenedDialogs: ComputedRef<boolean>
   onConfirm: EventHookOn
   onCancel: EventHookOn
 } => {
@@ -110,7 +109,6 @@ export const useDialog = <C extends Component>(
     closeAll,
     reveal,
     isRevealed: computed(() => revealed.value),
-    hasOpenedDialogs: computed(() => dialogsStore.length > 0),
     onConfirm,
     onCancel,
   }
