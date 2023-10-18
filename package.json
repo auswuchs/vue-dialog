@@ -2,7 +2,7 @@
   "name": "@auswuchs/vue-dialog",
   "description": "Modern programmatic way to use dialogs in vue",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.1.3",
   "type": "module",
   "files": [
     "dist"
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",
+    "nanoid": "^5.0.2",
     "vue": "^3.2.47"
   },
   "devDependencies": {

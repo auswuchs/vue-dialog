@@ -9,12 +9,12 @@ export type ComponentProps<C extends Component> = C extends new (...args: any) =
 export type UseDialogContainerReturn = {
   dialogsStore: DialogData<any>[]
   dialogAdd: (dialogData: DialogData<any>) => void,
-  dialogRemove: (id: number) => void,
+  dialogRemove: (id: number | string) => void,
   removeAll: () => void
 }
 
 export type DialogData<C extends Component> = {
-  id: number
+  id: number | string
   component: C
   isRevealed: Ref<boolean>
   revealed: Ref<boolean>

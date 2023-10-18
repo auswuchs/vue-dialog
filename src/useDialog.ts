@@ -1,16 +1,12 @@
 import { ref, watch, computed, Component, shallowRef } from 'vue'
 import { EventHookOn, useConfirmDialog, UseConfirmDialogRevealResult } from '@vueuse/core'
+import { nanoid } from 'nanoid'
 
 import type { ComputedRef } from 'vue'
 import type { ComponentProps } from './types'
 
 import { useDialogContainer } from './useDialogContainer'
 
-let initialDialogId = 0
-
-const getDialogId = () => {
-  return ++initialDialogId
-}
 
 /**
  * @param dialog - a component that used for modal dialog
@@ -55,7 +51,7 @@ export const useDialog = <C extends Component>(
     cancel 
   } = useConfirmDialog()
 
-  const DIALOG_ID = getDialogId()
+  const DIALOG_ID = nanoid()
 
   const setProps = (props: ComponentProps<C> | null) => {
     if(!props) {

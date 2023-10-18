@@ -9,7 +9,7 @@ const sharedUseDialogContainer = (): UseDialogContainerReturn => {
     dialogsStore.push(markRaw(dialogData))
   }
 
-  const dialogRemove = (id: number) => {
+  const dialogRemove = (id: number | string) => {
     const index = dialogsStore.findIndex(dialog => dialog.id == id)
     dialogsStore.splice(index, 1)
   }
