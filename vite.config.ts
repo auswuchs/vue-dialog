@@ -6,9 +6,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [
     vue(),
-    dts({
-      insertTypesEntry: true,
-    }),
+    dts(),
   ],
   build: {
     minify: false,
