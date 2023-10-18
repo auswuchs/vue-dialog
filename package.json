@@ -2,7 +2,7 @@
   "name": "@auswuchs/vue-dialog",
   "description": "Modern programmatic way to use dialogs in vue",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "files": [
     "dist"
