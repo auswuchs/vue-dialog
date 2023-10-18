@@ -98,12 +98,7 @@ const handleDialog = async () => {
 
 ## Passing data from/to dialog
 
-There are several ways to deal with data. First of all, you can pass data to the second argument of the `useDialog` composable. Data must be an object with component props. For example, if a component has a prop with the name `deail` we can pass this `{ detail: { ... } }`.
-
-If you don't set the props behavior options (third argument of `useDialog` composable), then each time you pass values, this data will be saved. For example, if you have an dialog component and you called it some data, then next time if you don't pass a new data, it will show this data again.
-
-- `clear` - if `true` will tell to function reset values after closing dialog
-- `keepInitial` - if `true` reset props values to initial values, otherwise to default values of the component
+There are several ways to deal with data. First of all, you can pass data to the second argument of the `useDialog` composable. Data must be an object with component props. For example, if a component has a prop with the name `detail` we can pass it like this `{ detail: { ... } }`.
 
 ```javascript
 const dialog = useDialog(
